@@ -9,21 +9,36 @@ class LocalizeModel extends Model
 {
     use HasFactory;
 
-    public function localization()
+    public function localization($locale = false)
     {
-        return $this->morphOne('App\Models\Localization', 'lozalizable');
+        return $this->morphMany(Localization::class, 'lozalizable')
+            ->where('language', $locale ?? app()->getLocale());
+    }
+
+    public function localUpdate($fields, $locale)
+    {
+        foreach ($fields as $key => $value) {
+            $locItems = $this->localization($locale)
+                ->where("field", $key);
+            if ($locItems->count() > 0) {
+                $locItems->update(["value" => $value]);
+            } else {
+                $locItems->create(["language" => $locale, "field" => $key, "value" => $value]);
+            }
+        }
+        return $locItems;
+    }
+
+    public function localize($locale = false)
+    {
+        $locItems = $this->localization($locale)
+            ->get()
+            ->pluck('value', 'field');
+        return $locItems;
     }
 
     public function getLocalizeAttribute()
     {
-        if(app()->getLocale() == "ru") {
-            return $this->attributes;
-        } else {
-            $locItems = $this->localization()
-                ->where('language', app()->getLocale())
-                ->get()
-                ->pluck('value', 'field');
-            return $locItems;
-        }
+        return $this->localize();
     }
 }

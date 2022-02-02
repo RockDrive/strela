@@ -31,8 +31,8 @@ class Main extends Component
             ->get();
         foreach ($arMenu as $arItem) {
             $this->menu[] = [
-                "url" => route($arItem->page->code),
-                "title" => $arItem->localize["title"]
+                "page" => $arItem->page->seo()->url,
+                "title" => $arItem->title
             ];
         }
         return view('components.menu.main');

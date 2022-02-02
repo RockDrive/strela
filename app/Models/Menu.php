@@ -4,19 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Menu extends LocalizeModel
+class Menu extends BaseModel
 {
     use HasFactory;
 
-    protected $fillable = [
-        'type',
-        'title',
-        'sort',
-        'pageable'
-    ];
+    protected $guarded = [];
 
     public function page()
     {
-        return $this->belongsTo(Page::class, 'pageable_id');
+        return $this->belongsTo(Page::class, 'page_id');
     }
 }

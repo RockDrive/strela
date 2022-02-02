@@ -33,7 +33,7 @@ class Languages extends Component
             $lang = array_shift($url);
         }
         $url = implode("/", $url);
-        foreach (config('app.locales') as $lang) {
+        foreach (config('app.locales') as $lang => $title) {
             if ($lang == "ru") {
                 $this->langs[$lang] = url($url);
             } else {

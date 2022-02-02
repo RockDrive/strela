@@ -18,7 +18,7 @@ class CreateMenusTable extends Migration
             $table->string('type');
             $table->string('title');
             $table->integer('sort');
-            $table->morphs('pageable');
+            $table->integer('page_id');
             $table->timestamps();
         });
     }

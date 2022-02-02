@@ -112,4 +112,7 @@ Route::screen('example-editors', ExampleTextEditorsScreen::class)->name('platfor
 Route::screen('example-cards', ExampleCardsScreen::class)->name('platform.example.cards');
 Route::screen('example-advanced', ExampleFieldsAdvancedScreen::class)->name('platform.example.advanced');
 
+// Редактирование страниц
+Route::screen('page/{page}/{lang}', \App\Orchid\Screens\PageEditScreen::class)->name('platform.page');
+
 //Route::screen('idea', 'Idea::class','platform.screens.idea');

@@ -4,6 +4,14 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Orchid\Screen\Fields\Cropper;
+use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Matrix;
+use Orchid\Support\Facades\Layout;
+use App\Orchid\Layouts\Components\AboutField;
+use App\Orchid\Layouts\Components\ContactField;
+use App\Orchid\Layouts\Components\RoomsField;
+use App\Orchid\Layouts\Components\SliderField;
 
 class AboutController extends Controller
 {
@@ -18,10 +26,10 @@ class AboutController extends Controller
             "title" => "Условия проживания",
             "description" => "Данные правила проживания в отеле являются общими и могут варьироваться от типа номера. Пожалуйста проверьте описание Вашего номера.",
             "items" => [
-                ["key" => "Регистрация заезда",  "value" => "14:00"],
-                ["key" => "Регистрация выезда",  "value" => "12:00"],
-                ["key" => "Отмена бронирования",  "value" => "Отмена бронирования возможна за 24 часа до заезда."],
-                ["key" => "Меры противодействия Covid 19",  "value" => "Отель «Стрела» заботится о безопасности гостей и принимает меры по усилению санитарного режима. В целях противодействия распространения короновирусной инфекции (COVID – 19) просим Вас соблюдать следующие правила поведения:
+                ["key" => "Регистрация заезда", "value" => "14:00"],
+                ["key" => "Регистрация выезда", "value" => "12:00"],
+                ["key" => "Отмена бронирования", "value" => "Отмена бронирования возможна за 24 часа до заезда."],
+                ["key" => "Меры противодействия Covid 19", "value" => "Отель «Стрела» заботится о безопасности гостей и принимает меры по усилению санитарного режима. В целях противодействия распространения короновирусной инфекции (COVID – 19) просим Вас соблюдать следующие правила поведения:
                         1. Соблюдать социальную дистанцию от 1.5 метров.
                         2. Носить маски и перчатки о общих зонах.
                         3. Придерживаться правой стороны при перемещении внутри отеля (в коридорах, лестницах).
@@ -39,5 +47,27 @@ class AboutController extends Controller
             Персональные сведения будут использованы только для оформления бронирования."
         ];
         return view('about', $arResults);
+    }
+
+    public static function admin($lang, $items)
+    {
+            return Layout::accordion([
+                "Баннер" => Layout::rows([
+                    Matrix::make('slides')
+                        ->columns([
+                            'Изображение' => 'img',
+                            'Изображение (моб)' => 'img_mob',
+                            'Сортировка' => 'sort'
+                        ])
+                        ->fields([
+                            'img' => Cropper::make('img'),
+                            'img_mob' => Cropper::make('img_mob'),
+                            'sort' => Input::make()->type('number'),
+                        ]),
+                ]),
+//                "Контакты" => new AboutField(),
+                "Номера" => new RoomsField(),
+                "Контакты" => new ContactField(),
+            ]);
     }
 }

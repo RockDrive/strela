@@ -17,7 +17,7 @@ class CreateLocalizationsTable extends Migration
             $table->id();
             $table->string('field');
             $table->string('language');
-            $table->longText('value');
+            $table->longText('value')->nullable();
             $table->morphs('lozalizable');
             $table->timestamps();
         });

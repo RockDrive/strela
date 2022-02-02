@@ -9,12 +9,7 @@ class Localization extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'field',
-        'language',
-        'value',
-        'lozalizable'
-    ];
+    protected $guarded = [];
 
     protected $table = 'localizations';
 
