@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+    public function index($url)
     {
+        return $url;
         $arResults["slides"] = [
             ["src" => asset('img/desktop-banner.jpg'), "src_mob" => asset('img/mob-banner.jpg')],
             ["src" => asset('img/desktop-banner.jpg'), "src_mob" => asset('img/mob-banner.jpg')],

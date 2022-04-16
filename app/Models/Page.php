@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends BaseModel
+class Page extends Model
 {
     use HasFactory;
 
@@ -16,41 +16,25 @@ class Page extends BaseModel
         "description" => "html"
     ];
 
-    public function seo($lang = false)
-    {
-        $lang = $lang ?? app()->getLocale();
-        $fields = $this->fields()->whereIn("name", array_keys($this->seoItems))->get();
 
-        $arResult = collect();
-        foreach ($fields as $field) {
-            if ($field->type == "string") {
-                $arResult->{$field->name} = $field->localize()->firstWhere('language', $lang)->string ?? $field->string;
-            }
-            if ($field->type == "html") {
-                $arResult->{$field->name} = $field->localize()->firstWhere('language', $lang)->html ?? $field->html;
-            }
-            if ($field->type == "file") {
-                $arResult->{$field->name} = $field->file();
-            }
-            if ($field->type == "table") {
-                $arResult->{$field->name} = $field->table();
-            }
-        }
-        return $arResult;
+    public function components()
+    {
+        return $this->hasMany(CompBind::class);
     }
 
-    public function seoUpdate($items, $lang = false)
+    public function seo()
     {
-        foreach ($this->seoItems as $seoItem => $seoType) {
-            if (isset($items[$seoItem])) {
-                $actualItems[$seoItem] = $items[$seoItem];
-            }
+        return $this->hasMany(Seo::class);
+    }
+
+    public function getSeo($lang = false)
+    {
+        $lang = $lang ?? app()->getLocale();
+        $seo = $this->seo()->firstWhere("lang", $lang);
+        if(!$seo) {
+            $seo = $this->seo()->firstWhere("lang", config('app.fallback_locale'));
+            $seo->url = "/" . $lang . $seo->url;
         }
-        $fields = $this->fields()
-            ->whereIn("name", array_keys($actualItems));
-        if ($fields->count() == 0) {
-            $this->itemFrame($this->seoItems);
-        }
-        $this->itemUpdate($actualItems, $lang);
+        return $seo;
     }
 }

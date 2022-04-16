@@ -9,7 +9,7 @@
                     [
                         'setContext',
                         'TL-EXPRESS.express-new-aa',
-                        '{{app()->getLocale()}}'
+                        '{{ $lang }}'
                     ],
                     ['embed', 'search-form', {
                         providers: [['16788']],

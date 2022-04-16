@@ -114,5 +114,8 @@ Route::screen('example-advanced', ExampleFieldsAdvancedScreen::class)->name('pla
 
 // Редактирование страниц
 Route::screen('page/{page}/{lang}', \App\Orchid\Screens\PageEditScreen::class)->name('platform.page');
+Route::screen('components', \App\Orchid\Screens\ComponentsScreen::class)->name('platform.components');
+Route::screen('component/{bind}/{lang}', \App\Orchid\Screens\ComponentEditScreen::class)->name('platform.component.edit');
+Route::screen('menu/{type}/{lang}', \App\Orchid\Screens\MenuScreen::class)->name('platform.menu');
 
 //Route::screen('idea', 'Idea::class','platform.screens.idea');

@@ -16,7 +16,7 @@
             } else {
             }
             var q = [
-                ['setContext', 'TL-EXPRESS', '{{app()->getLocale()}}'],
+                ['setContext', 'TL-EXPRESS', '{{$lang}}'],
                 ['embed', 'booking-form', {
                     provider: '16788'
                     , theme: 'express-orange'

@@ -15,7 +15,7 @@
                 _source = 'BS-MOBILE_SITE';
             }
             var q = [
-                ['setContext', 'TL-EXPRESS.rooms', '{{app()->getLocale()}}'],
+                ['setContext', 'TL-EXPRESS.rooms', '{{$lang}}'],
                 ['embed', 'booking-form', {
                     provider: '16788'
                     , theme: 'express-orange'

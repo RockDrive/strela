@@ -26,21 +26,7 @@ class PlatformProvider extends OrchidServiceProvider
     {
         parent::boot($dashboard);
 
-        // TODO временная хрень (возможно)
-        LayoutFactory::macro('page', function (string $name) {
-            return new class($name) extends Layout
-            {
-                public $name;
-                public function __construct(string $name)
-                {
-                    $this->name = $name;
-                }
-                public function build(Repository $repository)
-                {
-                    return $this->name;
-                }
-            };
-        });
+        // ..
     }
 
     /**
@@ -48,26 +34,35 @@ class PlatformProvider extends OrchidServiceProvider
      */
     public function registerMainMenu(): array
     {
+        $lang = request('lang') ?? config('app.fallback_locale');
         $navigations = [];
 
         // Страницы
         $pageMenu = [];
-        $lang = request('lang') ?? "ru";
-        foreach (Page::get() as $page) {
-            $pageMenu[] = Menu::make($page->title)
-                ->icon('doc')
-                ->route('platform.page', ["page" => $page->id, "lang" => $lang]);
+        foreach (Page::get() as $key => $page) {
+            if($key == 0) {
+                $navigations[] = Menu::make($page->title)
+                    ->icon('note')
+                    ->route('platform.page', ["page" => $page->id, "lang" => $lang])
+                    ->title('Страницы');
+            } else {
+                $navigations[] = Menu::make($page->title)
+                    ->icon('note')
+                    ->route('platform.page', ["page" => $page->id, "lang" => $lang]);
+            }
         }
-        $navigations[] = Menu::make('Страницы')
-            ->slug('pages')
-            ->icon('docs')
-            ->list($pageMenu);
 
         // Навигация
         $navigations[] = Menu::make("Главное меню")
             ->icon('menu')
-            ->route('platform.example')
+            ->route('platform.menu', ["type" => "main", "lang" => $lang])
             ->title('Навигация');
+
+        // Компоненты
+        $navigations[] = Menu::make("Компоненты")
+            ->icon('menu')
+            ->route('platform.components')
+            ->title('Служебное');
 
         // Пользователи
         $navigations[] = Menu::make(__('Users'))

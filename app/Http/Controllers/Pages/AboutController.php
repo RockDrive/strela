@@ -8,10 +8,10 @@ use Orchid\Screen\Fields\Cropper;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Matrix;
 use Orchid\Support\Facades\Layout;
-use App\Orchid\Layouts\Components\AboutField;
+use App\Orchid\Layouts\Components\About;
 use App\Orchid\Layouts\Components\ContactField;
 use App\Orchid\Layouts\Components\RoomsField;
-use App\Orchid\Layouts\Components\SliderField;
+use App\Orchid\Layouts\Components\Banner;
 
 class AboutController extends Controller
 {

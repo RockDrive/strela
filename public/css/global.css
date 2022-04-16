@@ -795,6 +795,10 @@ h1 {
     background: url(../img/flags_big/ru.png) 50% no-repeat
 }
 
+.lang__flag_tt {
+    background: url(../img/flags_big/tt.png) 50% no-repeat
+}
+
 .lang__flag_en {
     background: url(../img/flags_big/en.png) 50% no-repeat
 }
@@ -971,11 +975,11 @@ h1 {
     }
 }
 
-@media screen and (max-width: 480px), screen and (max-height: 750px) {
-    .phone_header {
-        display: none
-    }
-}
+/*@media screen and (max-width: 480px), screen and (max-height: 750px) {*/
+/*    .phone_header {*/
+/*        display: none*/
+/*    }*/
+/*}*/
 
 .copyright__official {
     font-size: 12px;

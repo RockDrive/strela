@@ -4,55 +4,32 @@ declare(strict_types=1);
 
 namespace App\Orchid\Screens;
 
+use App\Models\Page;
+use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Actions\ModalToggle;
+use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Screen;
+use Orchid\Screen\TD;
 use Orchid\Support\Facades\Layout;
 
 class PlatformScreen extends Screen
 {
-    /**
-     * Display header name.
-     *
-     * @var string
-     */
-    public $name = 'Get Started';
+    public $name = 'Страницы';
 
-    /**
-     * Display header description.
-     *
-     * @var string
-     */
-    public $description = 'Welcome to your Orchid application.';
-
-    /**
-     * Query data.
-     *
-     * @return array
-     */
     public function query(): array
     {
-        return [];
+        return [
+            "pages" => Page::get()
+        ];
     }
 
-    /**
-     * Button commands.
-     *
-     * @return \Orchid\Screen\Action[]
-     */
     public function commandBar(): array
     {
         return [
-            Link::make('Website')
-                ->href('http://orchid.software')
-                ->icon('globe-alt'),
 
-            Link::make('Documentation')
-                ->href('https://orchid.software/en/docs')
-                ->icon('docs'),
-
-            Link::make('GitHub')
-                ->href('https://github.com/orchidsoftware/platform')
-                ->icon('social-github'),
         ];
     }
 
@@ -64,7 +41,12 @@ class PlatformScreen extends Screen
     public function layout(): array
     {
         return [
-            Layout::view('platform::partials.welcome'),
+            Layout::table('pages', [
+                TD::make('name', 'Название')->render(function ($page) {
+                    return Link::make($page->title)
+                        ->route('platform.page', ["page" => $page->id, "lang" => config('app.fallback_locale')]);;
+                }),
+            ]),
         ];
     }
 }

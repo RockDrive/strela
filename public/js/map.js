@@ -55,12 +55,10 @@
         let $mapData = {
             "addresses": [
                 {
-                    "latitude": "44.511892",
-                    "longitude": "34.167194",
-                    "hintContent":
-                        "Отель &amp;#34;Стрела&amp;#34;"
-                    ,
-                    "balloonContent": "Отель &amp;#34;Стрела&amp;#34;, Республика Крым, г. Ялта, ул. Вергасова, 7"
+                    "latitude": mapInform["lat"] ?? "44.511892",
+                    "longitude": mapInform["lng"] ?? "34.167194",
+                    "hintContent": mapInform["title"] ?? "Отель &amp;#34;Стрела&amp;#34;",
+                    "balloonContent": mapInform["description"] ?? "Отель &amp;#34;Стрела&amp;#34;, Республика Крым, г. Ялта, ул. Вергасова, 7"
                 }
 
             ],

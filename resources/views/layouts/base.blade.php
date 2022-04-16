@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php App::setLocale($lang); @endphp
+    <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @section('head')
@@ -6,8 +7,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/png" href="{{ asset('img/favicon.png') }}">
-        <title>@yield('title', 'Отель Стрела в г. Ялте - официальный сайт')</title>
-        <meta name="description" content="Недорогой отель в Ялте. Узнайте цены на номера.  Отель расположен в 400 метрах от автовокзала Ялты">
+        <title>{{($seo->title) ? $seo->title : "Отель Стрела в г. Ялте - официальный сайт"}}</title>
+        <meta name="description" content="{{($seo->description) ? $seo->description : "Недорогой отель в Ялте. Узнайте цены на номера.  Отель расположен в 400 метрах от автовокзала Ялты"}}">
         <meta property="og:type" content="place">
         <meta property="og:title" content="@yield('og:title', 'Отель &#34;Стрела&#34;')">
         <meta property="og:url" content="@yield('og:url', '')">
@@ -29,13 +30,13 @@
                 @section('headBar')
                     <div class="header__bar">
                         <div class="h1 header__title">
-                            <a href="{{ route('home') }}" class="header__link">Отель &#34;Стрела&#34;</a>
+                            <a href="{{ route('home.'.$lang) }}" class="header__link">{{ $Header["site_name"] }}</a>
                         </div>
 
                         <div class="phone phone_header">
-                            <a href="tel:&#43;79870601050" class="phone__link">
+                            <a href="tel:{{ json_decode($Contact["phones"], true)[1]["phone"] }}" class="phone__link">
                                 <i class="icon-phone2 phone__icon"></i>
-                                <span class="phone__text"><b>&#43;79870601050</b></span>
+                                <span class="phone__text"><b>{{ json_decode($Contact["phones"], true)[1]["phone"] }}</b></span>
                             </a>
                         </div>
                     </div>
@@ -67,22 +68,22 @@
             <div class="button button_on_footer button_visible button_anchor" data-anchor-id="about"><i class="icon-arrow5"></i></div>
             <ul class="footer__list">
                 <li class="footer__item copyright">
-                    <div class="copyright__hotel">© Отель &#34;Стрела&#34;</div>
-                    <div class="copyright__official">2021, Официальный сайт</div>
+                    <div class="copyright__hotel">{{ $Footer["copyright_hotel"] }}</div>
+                    <div class="copyright__official">{{ $Footer["copyright_official"] }}</div>
                 </li>
                 <li class="footer__item payment-methods payment-methods_footer">
                     <i class="icon-moneypay payment-methods__icon"></i>
-                    <a class="payment-methods__link" href="{{ route('requisites') }}">Оплата и реквизиты</a>
+                    <a class="payment-methods__link" href="{{ route('requisites.'.$lang) }}">{{ $Footer["menu_title"] }}</a>
                 </li>
                 <li class="footer__item address address_footer">
-                    <a class="address__link" href="{{ route('contacts') }}">
+                    <a class="address__link" href="{{ route('contacts.'.$lang) }}">
                         <i class="icon-inmap1 address__icon"></i>
-                        <span class="address__text">Республика Крым, г. Ялта, ул. Вергасова, 7</span>
+                        <span class="address__text">{{ $Contact["address"] }}</span>
                     </a>
                 </li>
                 <li class="footer__item societal">
                     <div class="societal__list">
-                        <a href="{{ url('https://www.instagram.com/hotelstrela/') }}" target="_blank" class="societal__item societal__item_instagram">
+                        <a href="{{ url($Contact["instagram"]) }}" target="_blank" class="societal__item societal__item_instagram">
                             <i class="icon-instagram societal__icon"></i>
                         </a>
                     </div>

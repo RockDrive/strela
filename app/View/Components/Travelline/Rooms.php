@@ -6,14 +6,17 @@ use Illuminate\View\Component;
 
 class Rooms extends Component
 {
+
+    public $lang;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($lang)
     {
-        //
+        $this->lang = $lang;
     }
 
     /**

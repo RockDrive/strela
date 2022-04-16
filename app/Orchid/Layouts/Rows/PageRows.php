@@ -2,10 +2,11 @@
 
 namespace App\Orchid\Layouts\Rows;
 
-use App\Orchid\Layouts\Components\AboutField;
+use App\Models\Component;
+use App\Orchid\Layouts\Components\About;
 use App\Orchid\Layouts\Components\ContactField;
 use App\Orchid\Layouts\Components\RoomsField;
-use App\Orchid\Layouts\Components\SliderField;
+use App\Orchid\Layouts\Components\Banner;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Cropper;
 use Orchid\Screen\Fields\Input;
@@ -21,8 +22,8 @@ class PageRows
     public static function home()
     {
         return Layout::tabs([
-            "Баннер" => new SliderField(["slides"]),
-//            "О нас" => new AboutField(["title", "picture", "description"]),
+//            "Баннер" => new SliderField(["slides"]),
+            "О нас" => new About(["title", "picture", "description"]),
 //            "Номера" => new RoomsField(),
 //            "Контакты" => new ContactField(),
         ]);

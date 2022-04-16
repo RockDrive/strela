@@ -6,7 +6,7 @@
                     <div class="slider__item-overlay">
                         <h3 class="room__title">({{$slide}}) Первая категория &#34;Стандартный 2-х местный номер&#34;</h3>
                         <div class="room__booking clearfix">
-                            <a class="button button_room" href="{{route('rooms')}}">Узнать цену</a>
+                            <a class="button button_room" href="{{route('rooms.ru')}}">Узнать цену</a>
                         </div>
                     </div>
                 </div>

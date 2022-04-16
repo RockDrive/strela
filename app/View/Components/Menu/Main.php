@@ -26,12 +26,10 @@ class Main extends Component
      */
     public function render()
     {
-        $arMenu = Menu::where('type', 'main')
-            ->orderBy('sort', 'asc')
-            ->get();
-        foreach ($arMenu as $arItem) {
+        $menu = new Menu();
+        foreach ($menu->getMenu("main")->where('type', 'main')->orderBy('sort', 'asc')->get() as $arItem) {
             $this->menu[] = [
-                "page" => $arItem->page->seo()->url,
+                "page" => $arItem->page->template . "." . config('app.locale'),
                 "title" => $arItem->title
             ];
         }
